@@ -1,0 +1,19 @@
+.discount-tag {
+    display: inline-block;
+    background: #e0f7e9; /* Light green background */
+    color: #088A08; /* Dark green text */
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 3px;
+    margin-top: 5px;
+    border: 1px solid #088A08;
+    width: fit-content; /* Ensures it remains rectangular */
+    text-align: center;
+}
+.tp-cart-title{
+    width: 300px;
+}
+.c{
+    margin-left: 50px;
+}

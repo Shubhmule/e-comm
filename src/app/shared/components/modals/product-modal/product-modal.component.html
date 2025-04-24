@@ -1,0 +1,151 @@
+<div *ngIf="utilsService.modalId && utilsService.product" class="modal fade tp-product-modal"
+[id]="utilsService.modalId" tabindex="-1" [attr.aria-labelledby]="utilsService.modalId" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    
+      <button type="button" class="tp-product-modal-close-btn" [attr.data-bs-toggle]="'modal'"
+        [attr.data-bs-target]="'#' + utilsService.modalId" (click)="reset()">
+        <i class="fa-regular fa-xmark"></i>
+      </button>
+
+        
+
+        <div class="row" style="margin-top: 20px; margin-bottom: 20px">
+          <!-- Left Column -->
+          <div class="col-lg-5">
+            <div class="tp-product-details-thumb-content-wrapper">
+              <div class="tp-product-details-thumb-content">
+                <img [src]="productService.activeImg" alt="product-img" class="img-fluid w-100" />
+              </div>
+            </div>
+          </div>
+        
+          <!-- Right Column -->
+          <div class="col-lg-5">
+            <div class="tp-product-details-wrapper has-sticky">
+              <!-- Brand Name -->
+              <div class="tp-product-details-category">
+                <span>{{ utilsService.data.brandName }}</span>
+              </div>
+        
+              <!-- Product Title -->
+              <h3 class="tp-product-details-title">
+                {{ utilsService.data.productName }} {{ utilsService.data.colour }} 
+              </h3>
+        
+              <!-- Inventory -->
+              <div class="tp-product-details-inventory d-flex align-items-center mb-10">
+                <div class="tp-product-details-stock mb-10">
+                  <span *ngIf="productD.status; else notavl">Available</span>
+                  <ng-template #notavl><!-- Not Available --></ng-template>
+                </div>
+        
+                <!-- Ratings -->
+                <div class="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
+                  <div class="tp-product-rating-icon tp-product-rating-icon-2">
+                    <span *ngFor="let star of getStars(utilsService.data.rating)">
+                       <i class="fa-solid fa-star"></i>
+                     </span>
+                     <span *ngIf="hasHalfStar(utilsService.data.rating)">
+                       <i class="fa-solid fa-star-half-stroke"></i>
+                     </span>
+                     <span *ngFor="let star of getEmptyStars(utilsService.data.rating)">
+                       <i class="fa-regular fa-star"></i>
+                     </span>
+                   </div>
+                  <div class="tp-product-details-reviews">
+                    <span *ngIf="productD.is_rating; else notrev">(Reviews)</span>
+                    <ng-template #notrev>(7 Review)</ng-template>
+                  </div>
+                </div>
+              </div>
+        
+              <p>{{ productD.product_desc }}</p>
+        
+              <!-- Price -->
+              <div class="tp-product-details-price-wrapper mb-20">
+                <div *ngIf="sellingPrice > 0; else nosellingprice">
+                  <span class="tp-product-details-price old-price">₹{{ mrp }}</span>
+                  <span class="tp-product-details-price new-price">
+                    ₹{{ finaldiscount || sellingPrice.toFixed(2) }}
+                  </span>
+                </div>
+                <ng-template #nosellingprice>
+                  <span class="tp-product-details-price new-price">₹{{ mrp }}</span>
+                </ng-template>
+              </div>
+        
+              <!-- Size Selection -->
+              <div class="tp-product-details-variation" style="padding-bottom: 10px">
+                <div class="tp-product-details-variation-item">
+                  <h4 class="tp-product-details-variation-title">Size:</h4>
+                  <div class="tp-product-details-variation-list d-flex align-items-center">
+                    <button *ngFor="let item of baseSizeMrp"
+                            type="button"
+                            (click)="onProductSelected(item)"
+                            [ngClass]="{ selected:selectedSize === item.size }"
+                            style="margin-right: 5px; border: 2px solid gray; width: 50px; height: 50px;">
+                      <div class="tp-color-variation-tooltip d-flex justify-content-center align-items-center">
+                        {{ item.size }}
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+        
+              <!-- Offers -->
+
+              <div style="margin-bottom: 20px" *ngIf="offer.length > 0">
+                <h4 class="tp-product-details-variation-title">Available offers:</h4>
+                <div class="cust_discount" *ngFor="let item of offer">
+                  <input type="radio" name="item.offerName"  [value]="item.offerName"
+                  [(ngModel)]="offerName" (change)="discountCalculation(item)" />
+                   {{ item?.offerName }}
+                   <button
+                   *ngIf="offerName === item?.offerName"
+                   class="btn btn-sm btn-outline-danger rounded-circle"
+                   style="width: 24px; height: 24px; padding: 0; line-height: 0; float: right;"
+                   title="Remove Offer"
+                   (click)="removeOffer(offerName)"
+                 >
+                   &times;
+                 </button>
+                  <div *ngIf="offerName == item?.offerName" style="float: right; font-weight: bold; margin-right: 10px;">Applied</div>
+              
+                </div>
+              </div>
+              <!-- Actions -->
+              <div class="tp-product-details-action-wrapper" >
+                <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
+                 
+                  <div class="tp-product-details-add-to-cart mb-15 w-100">
+                    <button (click)="[
+                        cartService.addCartProduct(product || utilsService.data, baseSizeMrpId, offerId),
+                        reset()
+                      ]"
+                      class="tp-product-details-add-to-cart-btn w-100">
+                      Add To Cart
+                    </button>
+                  </div>
+                </div>
+        <div >        
+          <a (click)="buynow(utilsService.data || productD, finaldiscount || sellingPrice || mrp)"
+          class="tp-product-details-buy-now-btn w-100 text-center">
+          Buy Now
+        </a>
+        </div>
+    
+              </div>
+            </div>
+        
+              
+            </div>
+          </div>
+        </div>
+        
+
+      
+
+  
+  </div>
+</div>

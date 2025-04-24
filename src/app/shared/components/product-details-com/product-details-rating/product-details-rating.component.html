@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row">
+    <!-- Left Side: Review Form & Button -->
+    <div class="col-md-4 review-form">
+      <h2 class="review-title">Review this product</h2>
+      <h5 class="review-subtitle">Share your thoughts with other customers</h5>
+      <button type="button" class="custom-review-btn" data-bs-toggle="modal" data-bs-target="#reviewModal">
+        Write a product review
+      </button>
+
+      <!-- Review Modal -->
+      <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reviewModalLabel">Leave a Review for {{productD.product_name}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <!-- Product Image + Rating -->
+              <div class="d-flex align-items-center mb-3">
+                <img [src]="productD.image_url" alt="{{productD.product_name}}" class="img-thumbnail me-2" style="width: 60px; height: 60px; object-fit: cover;">
+
+                <!-- Star Rating -->
+                <div>
+                  <h6>Rate Us:</h6>
+                  <div class="star-rating">
+                    <i *ngFor="let star of stars; let i = index" class="bi"
+                       [class.bi-star-fill]="i < rating"
+                       [class.bi-star]="i >= rating"
+                       (click)="setRating(i + 1)">
+                    </i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Review Text -->
+              <div class="mt-3">
+                <label for="reviewText" class="form-label">Your Review</label>
+                <textarea class="form-control" id="reviewText" rows="3" [(ngModel)]="reviewText"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal" #reviewModalClose>Close</button>
+              <button type="button" class="btn btn-primary" (click)="submitReview()">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+    <!-- Right Side: Review Section -->
+    <div class="col-md-8 review-container">
+      <div class="review-header">
+        <img src="/assets/img/logo/logo.png" alt="User Profile" class="profile-pic">
+        <span class="reviewer-name">Venkata Nagendra Guttula</span>
+      </div>
+
+      <div class="review-rating">
+        ⭐⭐⭐⭐⭐ <strong>Fabulous product</strong>
+      </div>
+
+      <div class="review-details">
+        <p>Reviewed in India on 21 March 2025</p>
+        <p><strong>Style Name:</strong> Buds T200 Lite <strong>Colour:</strong> Volt Black 
+          <span class="verified">Verified Purchase</span>
+        </p>
+      </div>
+
+      <div class="review-text">
+        <p>The product is good with fast connectivity, very clear sound for music. Very ease of pairing to devices.</p>
+        <p>Very ease of pairing to devices. Very ease of pairing to devices. Very ease of pairing to devices.</p>
+        <p>Smooth and comfortable fit in ears Very ease of pairing to devices. Very ease of pairing to devices.</p>
+        <p>Voice call clarity to be improved Very ease of pairing to devices. Very ease of pairing to devices.</p>
+        <p>Good battery backup with fast charging speed. Worth for the price. Very ease of pairing to devices.</p>
+      </div>
+
+      <div class="review-header">
+        <img src="/assets/img/logo/logo.png" alt="User Profile" class="profile-pic">
+        <span class="reviewer-name">Venkata Nagendra Guttula</span>
+      </div>
+
+      <div class="review-rating">
+        ⭐⭐⭐⭐⭐ <strong>Fabulous product</strong>
+      </div>
+
+      <div class="review-details">
+        <p>Reviewed in India on 21 March 2025</p>
+        <p><strong>Style Name:</strong> Buds T200 Lite <strong>Colour:</strong> Volt Black 
+          <span class="verified">Verified Purchase</span>
+        </p>
+      </div>
+
+      <div class="review-text">
+        <p>The product is good with fast connectivity, very clear sound for music.</p>
+        <p>Very ease of pairing to devices.</p>
+        <p>Smooth and comfortable fit in ears</p>
+        <p>Voice call clarity to be improved</p>
+        <p>Good battery backup with fast charging speed. Worth for the price.</p>
+      </div>
+    </div>
+
+    
+  </div>
+</div>

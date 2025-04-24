@@ -1,0 +1,47 @@
+<div class="tp-shop-widget-content">
+  <div class="tp-shop-widget-filter">
+    <div id="slider-range" class="mb-10">
+      <ngx-slider
+        [(value)]="min"
+        [(highValue)]="max"
+        [options]="options"
+        (userChangeEnd)="appliedFilter($event)"
+        *ngIf="isBrowser"
+      ></ngx-slider>
+    </div>
+
+    <div class="tp-shop-widget-manual-input d-flex align-items-center justify-content-between mt-10">
+      <input
+        type="number"
+        [(ngModel)]="tempMin"
+        (change)="onMinChange(tempMin)"
+        (keydown)="preventNegativeInput($event)"
+        style="height: 30px; -moz-appearance: textfield; appearance: textfield; width: 120px;"
+        class="form-control"
+        placeholder="Min Price"
+        min="0"
+      />
+
+      <input
+        type="number"
+        [(ngModel)]="tempMax"
+        (change)="onMaxChange(tempMax)"
+        (keydown)="preventNegativeInput($event)"
+        style="height: 30px; -moz-appearance: textfield; appearance: textfield; width: 120px;"
+        class="form-control"
+        placeholder="Max Price"
+        min="0"
+      />
+    </div>
+
+    <div class="tp-shop-widget-filter-info d-flex align-items-center justify-content-between mt-10">
+      <span class="input-range">
+        ₹{{ min }} - ₹{{ max }}
+      </span>
+      <button (click)="handlePriceRoute()" class="tp-shop-widget-filter-btn" type="button">
+        Filter
+      </button>
+    
+    </div>
+  </div>
+</div>

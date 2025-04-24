@@ -1,0 +1,22 @@
+.tp-product-details-thumb-content img {
+    object-fit: contain;
+    max-height: 400px;
+  }
+
+  /* Overlay style */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Darken the background */
+    z-index: 1040; /* Ensure it stays above other elements but below the modal */
+    display: none;
+  }
+  
+  /* When the modal is open, display the overlay */
+  .modal.show + .modal-overlay {
+    display: block;
+  }
+  

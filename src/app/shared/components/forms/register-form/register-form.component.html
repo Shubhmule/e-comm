@@ -1,0 +1,98 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="tp-login-input-wrapper">
+    <div class="tp-login-input-box">
+      <div class="tp-login-input">
+        <input id="firstName" type="text" placeholder="Shahnewaz" formControlName="firstName"  (keydown.space)="$event.preventDefault()">
+      </div>
+      <div class="tp-login-input-title">
+        <label for="firstName">Your First Name</label>
+      </div>
+      <span *ngIf="firstName?.hasError('required') && (firstName?.touched || formSubmitted) ||  
+          (firstName?.errors?.['minlength'] && firstName?.dirty) ||
+          (firstName?.errors?.['pattern'] && firstName?.dirty) || (firstName?.errors?.['maxlength'] && firstName?.dirty) " class="text-danger">
+        First Name is required & must be a character
+      </span>
+    </div>
+
+    <div class="tp-login-input-box">
+      <div class="tp-login-input">
+        <input id="middleName" type="text" placeholder="Shahnewaz" formControlName="middleName"  (keydown.space)="$event.preventDefault()">
+      </div>
+      <div class="tp-login-input-title">
+        <label for="middleName">Your Middle Name</label>
+      </div>
+      <span *ngIf="(middleName?.errors?.['pattern'] && middleName?.dirty) || (middleName?.errors?.['maxlength'] && middleName?.dirty)  " class="text-danger">
+        Middle Name must be a character
+      </span>
+    </div>
+
+    <div class="tp-login-input-box">
+      <div class="tp-login-input">
+        <input id="lastName" type="text" placeholder="Sakil" formControlName="lastName"  (keydown.space)="$event.preventDefault()">
+      </div>
+      <div class="tp-login-input-title">
+        <label for="lastName">Your Last Name</label>
+      </div>
+      <span *ngIf="lastName?.hasError('required') && (lastName?.touched || formSubmitted) || (lastName?.errors?.['pattern'] && lastName?.dirty) 
+      || (lastName?.errors?.['maxlength'] && lastName?.dirty) " class="text-danger">
+        Last Name is required & must be a character
+      </span>
+    </div>
+
+    <div class="tp-login-input-box">
+      <div class="tp-login-input">
+        <input id="email" type="email" placeholder="shofy@mail.com" formControlName="email"  (keydown.space)="$event.preventDefault()">
+      </div>
+      <div class="tp-login-input-title">
+        <label for="email">Your Email</label>
+      </div>
+      <span *ngIf="(email?.hasError('required') && email?.touched) || (email?.hasError('email') && email?.dirty) || (formSubmitted && !email?.value)" class="text-danger">
+        Email is required and must be a valid email address
+      </span>
+    </div>
+
+    <div class="tp-login-input-box">
+      <div class="tp-login-input">
+        <input id="mobNo" type="text" placeholder="9999999998" formControlName="mobNo"  (keydown.space)="$event.preventDefault()">
+      </div>
+      <div class="tp-login-input-title">
+        <label for="mobNo">Your Mobile No</label>
+      </div>
+      <span
+        *ngIf="
+          (mobNo?.hasError('required') && mobNo?.touched) ||
+          (mobNo?.errors?.['minlength'] && mobNo?.dirty) ||
+          (mobNo?.errors?.['maxLength'] && mobNo?.dirty) ||
+          (mobNo?.errors?.['pattern'] && mobNo?.dirty) 
+        "
+        class="text-danger"
+      >
+        Mobile Number is required and must be a 10 digit
+      </span>
+    </div>
+    <div class="tp-login-input-box">
+      <div class="tp-login-input">
+        <input id="referralCode" type="text" placeholder="ECMA02" formControlName="referralCode"  (keydown.space)="$event.preventDefault()">
+      </div>
+      <div class="tp-login-input-title">
+        <label for="referralCode">Enter Referal Code</label>
+      </div>
+      <span *ngIf="
+          (referralCode?.errors?.['minlength'] && referralCode?.dirty) ||
+          (referralCode?.errors?.['maxlength'] && referralCode?.dirty)"
+        class="text-danger"
+      >
+        Enter Valid 6 Degit Referral Code
+      </span>
+    </div>
+  </div>
+  <div class="tp-login-suggetions d-sm-flex align-items-center justify-content-between mb-20">
+    <!-- <div class="tp-login-remeber">
+      <input id="remeber" type="checkbox">
+      <label for="remeber">I accept the terms of the Service & <a href="#">Privacy Policy</a>.</label>
+    </div> -->
+  </div>
+  <div class="tp-login-bottom">
+    <button type="submit" class="tp-login-btn w-100">Sign Up</button>
+  </div>
+</form>

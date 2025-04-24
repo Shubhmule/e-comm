@@ -1,0 +1,212 @@
+<div class="tp-product-details-wrapper has-sticky">
+  <div class="tp-product-details-category">
+    <span>{{ util.data.brandName }}</span>
+  </div>
+  <h3 class="tp-product-details-title">
+    {{ productD.product_name }} {{ productD.colour }}
+  </h3>
+
+  <!-- inventory details -->
+  <div class="tp-product-details-inventory d-flex align-items-center mb-10">
+    <div class="tp-product-details-stock mb-10">
+      <span *ngIf="productD.status; else notavl">Available</span>
+      <ng-template #notavl>
+        <!-- <span >Not Available</span> -->
+      </ng-template>
+    </div>
+    <div
+      class="tp-product-details-rating-wrapper d-flex align-items-center mb-10"
+    >
+      <div class="tp-product-details-rating">
+        <span *ngFor="let star of getStars(productD.rating)">
+          <i class="fa-solid fa-star"></i>
+        </span>
+        <span *ngIf="hasHalfStar(productD.rating)">
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </span>
+        <span *ngFor="let star of getEmptyStars(productD.rating)">
+          <i class="fa-regular fa-star"></i>
+        </span>
+      </div>
+      <div class="tp-product-details-reviews">
+        <!-- <span  *ngIf="productD.is_rating;  else notrev">({{ product.reviews?.length }} Reviews)</span> -->
+        <span *ngIf="productD.is_rating; else notrev">(Reviews)</span>
+        <ng-template #notrev>
+          <!-- <span>No Reviews</span> -->
+          (7 Review)
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <!-- <p>
+    {{ textMore ? productD.product_desc : (productD.product_desc.substring(0, 100) + '...') }}
+    <span (click)="handleTextToggle()">{{ textMore ? 'See less' : 'See more' }}</span>
+  </p> -->
+  <p>{{ productD.product_desc }}</p>
+
+  <!-- price -->
+  <!-- <div class="tp-product-details-price-wrapper mb-20">
+    <div *ngIf="product.discount > 0">
+      <span class="tp-product-details-price old-price">${{ product.minmrp }}</span>
+      <span class="tp-product-details-price new-price">
+        ${{ ((product.minmrp || 0) - ((product.minmrp || 0) * (product.discount || 0)) / 100).toFixed(2) }}
+      </span>
+    </div>
+    <span *ngIf="product.discount <= 0" class="tp-product-details-price old-price">
+      ${{ (product.minmrp || 0).toFixed(2) }}
+    </span>
+  </div>
+
+   <-- price2 -->
+  <div class="tp-product-details-price-wrapper mb-20">
+    <div>
+      <div *ngIf="sellingPrice; else ifmrp">
+        <span class="tp-product-details-price old-price">₹{{ mrp }} </span>
+        <!-- <span class="tp-product-details-price new-price">
+          ₹{{ ((product.minmrp || 0) - ((product.minmrp || 0) * (product.discount || 0)) / 100).toFixed(2) }}
+        </span> -->
+        <span class="tp-product-details-price new-price">
+          ₹{{ finaldiscount|| sellingPrice || util.data.minmrp }}
+        </span>
+      </div>
+      <ng-template #ifmrp>
+        <span class="tp-product-details-price new-price"
+          >₹{{ mrp || util.data.minmrp }}
+        </span>
+      </ng-template>
+    </div>
+    <!-- <span class="tp-product-details-price old-price">
+      ₹{{ (product.minmrp || 0).toFixed(2) }}
+    </span> -->
+  </div>
+
+  <!-- variations -->
+  <div class="tp-product-details-variation" style="padding-bottom: 10px">
+    <div class="tp-product-details-variation-item">
+      <h4 class="tp-product-details-variation-title">Size:</h4>
+      <div class="tp-product-details-variation-list d-flex align-items-center">
+        <button
+          *ngFor="let item of baseSizeMrp"
+          type="button"
+          (click)="onProductSelected(item)"
+          [ngClass]="{ selected: selectedSize === item.size }"
+          style="
+            margin-right: 5px;
+            border: 2px solid gray;
+            width: 50px;
+            height: 50px;
+          ">
+
+<div class="tp-color-variation-tooltip d-flex justify-content-center align-items-center">
+  {{ item.size }}
+</div>
+          
+        </button>
+      </div>
+    </div>
+  </div>
+  <div style="margin-bottom: 20px">
+    <div style="margin-bottom: 10px">
+      <h4 class="tp-product-details-variation-title">Available offers:</h4>
+    </div>
+
+    <div class="cust_discount" *ngFor="let item of offer">
+      <input type="radio" name="item.offerName"  [value]="item.offerName"
+      [(ngModel)]="offerName" (change)="discountCalculation(item)" />
+       {{ item?.offerName }}
+       <button
+       *ngIf="offerName === item?.offerName"
+       class="btn btn-sm btn-outline-danger rounded-circle"
+       style="width: 24px; height: 24px; padding: 0; line-height: 0; float: right;"
+       title="Remove Offer"
+       (click)="removeOffer(offerName)"
+     >
+       &times;
+     </button>
+      <div *ngIf="offerName == item?.offerName" style="float: right; font-weight: bold; margin-right: 10px;">Applied</div>
+  
+    </div>
+  </div>
+  <!--product countdown start -->
+  <!-- <div *ngIf="product?.offerDate?.endDate">
+    <div class="tp-product-details-countdown d-flex align-items-center justify-content-between flex-wrap mt-25 mb-25">
+    <h4 class="tp-product-details-countdown-title">
+      <i class="fa-solid fa-fire-flame-curved"></i> Flash Sale end in:
+    </h4>
+    <div
+      class="tp-product-details-countdown-time"
+    >
+      <app-countdown-timer [date]="product.offerDate?.endDate!"></app-countdown-timer>
+    </div>
+  </div>
+  </div> -->
+  <!-- product countdown end -->
+
+  <!-- actions -->
+  <div class="tp-product-details-action-wrapper">
+    <!-- <h3 class="tp-product-details-action-title">Quantity</h3> -->
+    <div class="tp-product-details-action-wrapper" >
+      <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
+       
+        <div class="tp-product-details-add-to-cart mb-15 w-100">
+          <button 
+             (click)="cartService.addCartProduct(productD, baseSizeMrpId, offerId)"
+            class="tp-product-details-add-to-cart-btn w-100">
+            Add To Cart
+          </button>
+        </div>
+      </div>
+<div >        
+<a (click)="buynow(product || productD, sellingPrice || mrp )"
+class="tp-product-details-buy-now-btn w-100 text-center">
+Buy Now
+</a>
+</div>
+
+    </div>
+
+  <div *ngIf="isShowBottom">
+    <div class="tp-product-details-action-sm">
+      <div class="tp-product-details-query">
+        <div class="tp-product-details-query-item d-flex align-items-center">
+          <span>SKU: </span>
+          <p>{{ productD.quantity }}</p>
+        </div>
+        <div class="tp-product-details-query-item d-flex align-items-center">
+          <span>Category: </span>
+          <p>{{ productD.category_name }}</p>
+        </div>
+        <div class="tp-product-details-query-item d-flex align-items-center">
+          <span>Tag: </span>
+          <p>Android</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="tp-product-details-query"></div>
+      <div class="tp-product-details-social">
+        <span>Share:</span>
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#"><i class="fa-brands fa-vimeo-v"></i></a>
+      </div>
+      <div class="tp-product-details-msg mb-15">
+        <ul>
+          <li>30 days easy returns</li>
+          <li>Order yours before 2.30pm for same day dispatch</li>
+        </ul>
+      </div>
+      <div
+        class="tp-product-details-payment d-flex align-items-center flex-wrap justify-content-between"
+      >
+        <p>
+          Guaranteed safe <br />
+          & secure checkout
+        </p>
+        <img src="/assets/img/product/icons/payment-option.png" alt="" />
+      </div>
+    </div>
+  </div>
+</div>

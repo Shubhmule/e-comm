@@ -1,0 +1,87 @@
+<form [formGroup]="loginForm">
+  <div class="tp-login-input-wrapper">
+    <!-- <div class="tp-login-input-box">
+        <div class="tp-login-input">
+          <input id="email" placeholder="9999988888" formControlName="mobile">
+        </div>
+        <div class="tp-login-input-title">
+          <label for="email">Your Mobile Number</label>
+        </div>
+      <span
+        *ngIf="(mobile?.hasError('required') && mobile?.touched) || (mobile?.hasError('mobile') && mobile?.dirty) || (formSubmitted && !mobile?.value)"
+        class="text-danger"
+      >
+        Mobile is required and must be a valid
+      </span>
+    </div> -->
+    <div class="tp-login-input-box">
+      <div class="p-relative">
+        <div class="tp-login-input">
+          <input id="t_mobile" type="text" placeholder="9999988888" formControlName="userName"  (keydown.space)="$event.preventDefault()"
+          [readonly]="isReadOnly">
+       </div>
+        <div class="tp-login-input-title">
+          <label for="t_mobile">Mobile</label>
+        </div>
+      </div>
+      <span
+        *ngIf="(userName?.hasError('required') && userName?.touched) ||
+         (userName?.hasError('userName') && userName?.dirty) || (formSubmitted && !userName?.value) 
+         || (userName?.errors?.['pattern'] && userName?.dirty) || (userName?.errors?.['minlength'] && userName?.dirty) ||
+         (userName?.errors?.['maxlength'] && userName?.dirty)" 
+        class="text-danger"
+      >
+        Mobile is required and must be a 10 Digit
+      </span>
+    </div> 
+  </div>
+
+  <div class="tp-login-bottom">
+    <button (click)="onOtpSent()" class="tp-login-btn w-100">Verify  OTP</button>
+  </div>
+  
+  <div style="height: 20px;"></div>
+  <!-- <div class="tp-login-input-wrapper">
+    <div class="tp-login-input-box">
+      <div class="p-relative">
+        <div class="tp-login-input">
+          <input id="tp_password" type="text" placeholder="Min. 6 character" formControlName="otp">
+       </div>
+        <div class="tp-login-input-title">
+          <label for="tp_password">OTP</label>
+        </div>
+      </div>
+    </div> 
+  </div> -->
+  <!-- Countdown Timer -->
+  <p id="countdownTimer" *ngIf="showTimer" style=" margin-top: 10px; color: red;">Resend OTP in <span
+    id="timer">{{ myTime}}</span>s</p>
+
+  <div id="otpSection" *ngIf="showOtpSection" >
+    <div id="otpInputs" style="display: flex; gap: 10px;">
+        <input #otpInput1 (input)="onOtpInput($event,0)" type="text" maxlength="1" class="otp-input"
+            (keydown)="onBackspace($event, 0)" class="otp-input"/>
+        <input #otpInput2 (input)="onOtpInput($event,1)" type="text" maxlength="1" class="otp-input"
+            (keydown)="onBackspace($event, 1)" class="otp-input" />
+        <input #otpInput3 (input)="onOtpInput($event,2)" type="text" maxlength="1" class="otp-input"
+            (keydown)="onBackspace($event, 2)" class="otp-input"/>
+        <input #otpInput4 (input)="onOtpInput($event,3)" type="text" maxlength="1" class="otp-input"
+            (keydown)="onBackspace($event, 3)" class="otp-input"/>
+    </div>
+    <div style="height:20px"></div>
+    <div class="tp-login-bottom">
+      <button  (click)="onSubmit()" class="tp-login-btn w-100">Verify</button>
+    </div>
+</div>
+
+  <!-- <div class="tp-login-suggetions d-sm-flex align-items-center justify-content-between mb-20">
+    <div class="tp-login-remeber">
+        <input id="remeber" type="checkbox">
+        <label for="remeber">Remember me</label>
+    </div>
+    <div class="tp-login-forgot">
+        <a routerLink="/pages/forgot">Forgot Password?</a>
+    </div>
+  </div> -->
+
+</form>

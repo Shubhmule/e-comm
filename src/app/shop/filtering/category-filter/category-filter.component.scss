@@ -1,0 +1,10 @@
+.selected-category {
+  text-align: center;
+  padding: 2px;
+  margin: 2px;
+}
+  
+
+.tp-shop-widget-categories ul li:not(:last-child) {
+  margin-bottom: 3px !important;
+}

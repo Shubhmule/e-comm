@@ -1,0 +1,29 @@
+<div class="tp-shop-widget-content">
+  <div
+    class="tp-shop-widget-brand-list d-flex align-items-center justify-content-between flex-wrap"
+  >
+    <div
+      *ngFor="let brand of brandsData"
+      class="tp-shop-widget-brand-item"
+    >
+    <a (click)="redirectToProdBrand(brand.id,brand.categoryKey)" class="cursor-pointer"><br>
+      <div class="brand-image-container">
+        <img *ngIf="brand.brandImage" [src]="brand.brandImage" alt="logo" />
+      </div>
+        <span *ngIf="brand.brandImage">
+          <b>{{ brand.brandName }}</b>
+        </span>
+        <span *ngIf="!brand.brandImage">
+          <b>{{ brand.brandName }}</b>
+        </span>
+      </a>
+    </div>
+  </div>
+<!-- <h3 class="tp-shop-widget-title">Show more</h3> -->
+<a (click)="getmore()" class="cursor-pointer" *ngIf="showMore">
+  <button class="tp-btn">Show more</button>
+</a>
+<a (click)="getLess()" class="cursor-pointer" *ngIf="!showMore">
+  <button class="tp-btn">Show less</button>
+</a>
+</div>

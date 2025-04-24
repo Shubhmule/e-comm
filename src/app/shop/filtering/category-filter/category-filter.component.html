@@ -1,0 +1,19 @@
+<div class="tp-shop-widget-content">
+  <div class="tp-shop-widget-categories">
+    <ul>
+      <li *ngFor="let category of categoryData">
+        <label>
+          <input
+            type="radio"
+            [(ngModel)]="type"
+            [value]="category.productCategoryId"
+            name="category"
+            class="selected-category"
+            (change)="redirectToProdCategory(category.productCategoryId)"
+          />
+          {{ category.categoryName }}
+        </label>
+      </li>
+    </ul>
+  </div>
+</div>

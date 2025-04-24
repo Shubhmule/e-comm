@@ -1,0 +1,19 @@
+<div class="tp-shop-widget-content">
+  <div  [ngClass]="{'tp-shop-widget-categories': status.length>0}">
+    <ul>
+      <li *ngFor="let s of status; let i = index" class="filter-item checkbox">
+        <label>
+          <input
+            type="radio"
+            [(ngModel)]="brand"
+            [value]="s.id"
+            name="s.brandName"
+            class="selected-category"
+            (change)="handleStatusRoute(s.brandName, s.id)"
+          />
+          {{ s.brandName }}
+        </label>
+      </li>
+    </ul>
+  </div>
+</div>

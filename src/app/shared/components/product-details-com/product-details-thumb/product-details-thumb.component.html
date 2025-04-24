@@ -1,0 +1,33 @@
+<div class="tp-product-details-thumb-wrapper tp-tab d-sm-flex">
+  <nav>
+    <div
+      class="nav nav-tabs flex-sm-column"
+      id="productDetailsNavThumb"
+      role="tablist"
+    >
+      <!-- <button
+        *ngFor="let item of productD?.product_image; let i = index"
+        [class.active]="item.product_image === productService.activeImg"
+        (click)="productService.handleImageActive(item.product_image)"
+        type="button"
+        class="nav-link"
+      >
+        <img [src]="productD.product_image" alt="nav-img" style="background-color: #F4F5F7;" />
+      </button> -->
+      <button class="activeImg"><img [src]="productD.image_url||productService.activeImg" alt="nav-img" style="background-color: #F4F5F7;" [ngStyle]="{'height': productD.image_url ? '66.667vh' : '33.333vh'}"  /></button>
+    </div>
+  </nav>
+  <div class="tab-content m-img" id="productDetailsNavContent">
+    <div
+      class="tp-product-details-nav-main-thumb"
+      style="background-color: #f5f6f8"
+    >
+      <!-- <img [src]="productService.activeImg" alt="prd-image" /> -->
+      <!-- <div *ngIf="product.videoId" class="tp-product-details-thumb-video">
+        <a (click)="utilsService.playVideo('B0WuqoXkJkY')" class="tp-product-details-thumb-video-btn cursor-pointer popup-video">
+          <i class="fas fa-play"></i>
+        </a>
+      </div> -->
+    </div>
+  </div>
+</div>
